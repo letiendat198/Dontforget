@@ -15,7 +15,7 @@ Download from github [release](https://github.com/letiendat198/Dontforget/releas
 
 ## Known Issues
 
-- Reminder cannot be cancel if note's title has been edited
+- Reminder cannot be cancel when removed if note's title has been edited (Please cancel reminder in Edit Note screen before removal)
 
 ## TODO
 
