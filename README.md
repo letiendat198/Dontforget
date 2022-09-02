@@ -10,7 +10,7 @@ Android 10 and up (Cause life is too short to handle backward compatability)
 
 ## Download
 
-Download from github [release](github.com/letiendat198/dontforget/releases) page
+Download from github [release](https://github.com/letiendat198/Dontforget/releases) page
 
 
 ## Known Issues
