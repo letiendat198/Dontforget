@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         //Create new remoteInput
         val KEY_TEXT_CREATE = "allseeingeye";
-        var creButString = "Create New Note";
+        var creButString = "Enter title";
         var remoteInput: RemoteInput = RemoteInput.Builder(KEY_TEXT_CREATE).run {
             setLabel(creButString)
             build()
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         //Create pendingIntent
         val creIntent = Intent(this, CreateNote::class.java)
         var crePendingIntent: PendingIntent = PendingIntent.getBroadcast(this, 0, creIntent, PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT);
-        var creAction: NotificationCompat.Action = NotificationCompat.Action.Builder(R.drawable.ic_noti, "Create a new Note", crePendingIntent).addRemoteInput(remoteInput).build()
+        var creAction: NotificationCompat.Action = NotificationCompat.Action.Builder(R.drawable.ic_noti, "Create a new note", crePendingIntent).addRemoteInput(remoteInput).build()
 
 
         //Remove default notification

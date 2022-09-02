@@ -64,14 +64,14 @@ class CreateNote: BroadcastReceiver() {
 
         //Update Original Notification
         val KEY_TEXT_CREATE = "allseeingeye";
-        var creButString = "Create New Note";
+        var creButString = "Enter title";
         var remoteInput: RemoteInput = RemoteInput.Builder(KEY_TEXT_CREATE).run {
             setLabel(creButString)
             build()
         }
         val creIntent = Intent(context, CreateNote::class.java)
         var crePendingIntent: PendingIntent = PendingIntent.getBroadcast(context, 0, creIntent, PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT);
-        var creAction: NotificationCompat.Action = NotificationCompat.Action.Builder(R.drawable.ic_noti, "Create a new Note", crePendingIntent).addRemoteInput(remoteInput).build()
+        var creAction: NotificationCompat.Action = NotificationCompat.Action.Builder(R.drawable.ic_noti, "Create a new note", crePendingIntent).addRemoteInput(remoteInput).build()
         val updateOriginal = NotificationCompat.Builder(context, "NOTE_DEFAULT")
             .setSmallIcon(R.drawable.ic_noti)
             .setContentTitle("Don't Forget is running")
