@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ This file is a part of Don't Forget
+  ~
+  ~ Don't Forget is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License along with this program. If not, see <https://www.gnu.org/licenses/>.
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.tiendatle.dontforget">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DontForget"
+        tools:targetApi="31">
+        <activity
+            android:name=".EditNoteActivity"
+            android:exported="false"
+            android:launchMode="singleTop"/>
+        <activity
+            android:name=".CreateNoteActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.DontForget" />
+        <activity
+            android:name=".TimePickActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar" />
+        <activity
+            android:name=".ReminderActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar" />
+
+        <receiver
+            android:name=".CreateNote"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name=".RefreshNote"
+            android:enabled="true"
+            android:exported="false" />
+        <receiver
+            android:name=".RemoveNote"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.DontForget">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
