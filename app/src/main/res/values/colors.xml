@@ -10,6 +10,15 @@
   -->
 
 <resources>
+    <color name="primary">#5896C7</color>
+    <color name="primary_light">#74B1E3</color>
+    <color name="primary_dark">#394856</color>
+    <color name="secondary_light">#CBE6FF</color>
+    <color name="secondary_dark">#D4E5F6</color>
+    <color name="on_primary_light">#000000</color>
+    <color name="on_primary_dark">#FFFFFF</color>
+    <color name="on_secondary_light">#000000</color>
+    <color name="on_secondary_dark">#FFFFFF</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

@@ -31,7 +31,9 @@ class FileHandler {
                 if (!line.startsWith(id)) {
                     Log.d("FILE_HANDLER_LOG", "Line safe: $line")
                     tempWriter.append(line + System.getProperty("line.separator"))
+                    continue
                 }
+                Log.d("FILE_HANDLER_LOG", "Line deleted: $line")
             }
             tempWriter.close()
             reader.close()

@@ -10,11 +10,9 @@
 
 package com.tiendatle.dontforget
 
-import android.app.ActivityOptions
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Typeface
@@ -93,6 +91,7 @@ class MainActivity : AppCompatActivity() {
             .setContentTitle("Don't Forget is running")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setOngoing(true)
+            .setGroup("Default")
             .addAction(creAction)
             .addAction(R.drawable.ic_noti, "Stop", removePendingIntent)
 
@@ -120,7 +119,21 @@ class MainActivity : AppCompatActivity() {
 
                 val intent = Intent(view.context, RemoveNote::class.java)
                 intent.putExtra("ID", notificationID)
+                intent.putExtra("isOnlyRemoveNotification", false)
+
+                val entries = fileHandler.readEntries(dir)
+                if (entries != null) {
+                    for (entry in entries) {
+                        if (entry.startsWith(notificationID.toString())) {
+                            val processed = fileHandler.processEntry(entry)
+                            val content = processed[1]
+                            Log.d("MAIN_LOG", "Content of matching ID found")
+                            intent.putExtra("Content", content)
+                        }
+                    }
+                }
                 sendBroadcast(intent)
+
                 val parent = findViewById<LinearLayout>(targetID)
                 parent.removeAllViews()
             }
@@ -129,6 +142,7 @@ class MainActivity : AppCompatActivity() {
         //Displaying entries
         val mainLayout = findViewById<LinearLayout>(R.id.mainlayout)
         val onClickListener = object: View.OnClickListener {
+            //Define action when a note is clicked
             override fun onClick(view: View) {
                 val notificationID = view.id / 10
                 val getTextView = view.rootView.findViewById<TextView>(view.id)
@@ -150,7 +164,15 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
+                var context = view.context
                 startActivity(editNoteIntent)
+                while (context is ContextWrapper){
+                    if (context is Activity){
+                        context.finish()
+                    }
+                    val contextWrapper = context as ContextWrapper
+                    context = contextWrapper.baseContext
+                }
             }
         }
         val font = ResourcesCompat.getFont(this, R.font.opensans_regular)
@@ -176,7 +198,7 @@ class MainActivity : AppCompatActivity() {
                 header.text = processed[1]
                 header.textSize = 25f
                 header.setTypeface(font)
-                header.setTextColor(ContextCompat.getColor(this, R.color.black))
+                //header.setTextColor(ContextCompat.getColor(this, R.color.black))
                 header.isClickable = true
                 header.id = processed[0].toInt() * 10
                 header.setOnClickListener(onClickListener)

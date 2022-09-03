@@ -35,6 +35,7 @@ class RefreshNote: BroadcastReceiver() {
 
         val removeIntent = Intent(context, RemoveNote::class.java)
         removeIntent.putExtra("ID", notificationID)
+        removeIntent.putExtra("Content", Content)
         val removePendingIntent = PendingIntent.getBroadcast(context, notificationID, removeIntent, PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
 
         var channelID = "NOTE_REMINDER"
@@ -47,7 +48,6 @@ class RefreshNote: BroadcastReceiver() {
             .setContentTitle(Content.toString())
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setOngoing(true)
-            .setGroup("Note")
             .addAction(R.drawable.ic_noti, "Remind me", remindPendingIntent)
             .addAction(R.drawable.ic_noti, "Remove", removePendingIntent)
         with(NotificationManagerCompat.from(context)) {

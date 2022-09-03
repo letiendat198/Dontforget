@@ -55,7 +55,6 @@ class CreateNote: BroadcastReceiver() {
             .setContentTitle(res.toString())
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setOngoing(true)
-            .setGroup("Note")
             .addAction(R.drawable.ic_noti, "Remind me", remindPendingIntent)
             .addAction(R.drawable.ic_noti, "Remove", removePendingIntent)
         with(NotificationManagerCompat.from(context)) {
@@ -69,6 +68,9 @@ class CreateNote: BroadcastReceiver() {
             setLabel(creButString)
             build()
         }
+        //Remove default notification
+        val removeIntentDefault = Intent(context, RemoveNote::class.java)
+        val removePendingIntentDefault = PendingIntent.getBroadcast(context, 1, removeIntent, PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         val creIntent = Intent(context, CreateNote::class.java)
         var crePendingIntent: PendingIntent = PendingIntent.getBroadcast(context, 0, creIntent, PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT);
         var creAction: NotificationCompat.Action = NotificationCompat.Action.Builder(R.drawable.ic_noti, "Create a new note", crePendingIntent).addRemoteInput(remoteInput).build()
@@ -77,7 +79,10 @@ class CreateNote: BroadcastReceiver() {
             .setContentTitle("Don't Forget is running")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setOngoing(true)
+            .setGroup("Default")
             .addAction(creAction)
+            .addAction(R.drawable.ic_noti, "Stop", removePendingIntent)
+
         with(NotificationManagerCompat.from(context)) {
             notify(1, updateOriginal.build());
         }

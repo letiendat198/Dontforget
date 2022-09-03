@@ -20,7 +20,7 @@ Download from github [release](https://github.com/letiendat198/Dontforget/releas
 ## TODO
 
 - Fix bugs (When? Idk)
-- An option to let certain notes don't show on notification panel
+~~An option to let certain notes don't show on notification panel~~
 
 ## LICENSE
 ```
@@ -34,4 +34,4 @@ You should have received a copy of the GNU General Public License along with thi
 ```
 
 ## Attribute
-App logo from (flaticon.com)[https://www.flaticon.com/free-icons/warning]
+App logo from [flaticon.com](https://www.flaticon.com/free-icons/warning)

@@ -25,25 +25,29 @@ class RemoveNote: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val notificationID = intent.getIntExtra("ID", 1)
         val content = intent.getStringExtra("Content").toString()
+        val isOnlyRemoveNoti = intent.getBooleanExtra("isOnlyRemoveNotification", true)
         Log.d("LOG_REMOVE", notificationID.toString())
 
         with(NotificationManagerCompat.from(context)) {
             cancel(notificationID)
         }
 
-        val fileHandler = FileHandler()
-        val dir = File(context.filesDir, "data.dat")
-        val tempFile = File(context.filesDir, "temp.dat")
-        fileHandler.deleteEntry(dir, tempFile, notificationID.toString())
+        if (!isOnlyRemoveNoti){
+            Log.d("LOG_REMOVE", "Removing entry in save")
+            val fileHandler = FileHandler()
+            val dir = File(context.filesDir, "data.dat")
+            val tempFile = File(context.filesDir, "temp.dat")
+            fileHandler.deleteEntry(dir, tempFile, notificationID.toString())
 
-        //Cancel Alarm (Won't work if the reminder's title have been edited prior to its removal - Please cancel in Edit Note screen before removing)
-        val intent = Intent(context, RefreshNote::class.java)
-        intent.putExtra("ID", notificationID)
-        intent.putExtra("Content", content)
-        intent.putExtra("isSounded", true)
-        val pendingIntent = PendingIntent.getBroadcast(context, notificationID, intent, PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-        var alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        alarmManager.cancel(pendingIntent)
+            //Cancel Alarm (Won't work if the reminder's title have been edited prior to its removal - Please cancel in Edit Note screen before removing)
+            val intent = Intent(context, RefreshNote::class.java)
+            intent.putExtra("ID", notificationID)
+            intent.putExtra("Content", content)
+            intent.putExtra("isSounded", true)
+            val pendingIntent = PendingIntent.getBroadcast(context, notificationID, intent, PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
+            var alarmManager: AlarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            alarmManager.cancel(pendingIntent)
+        }
 
     }
 }
