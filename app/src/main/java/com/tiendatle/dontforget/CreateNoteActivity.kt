@@ -47,7 +47,16 @@ class CreateNoteActivity : AppCompatActivity() {
                 return false
             }
         }
+        val onEditorActionListener = object: TextView.OnEditorActionListener {
+            override fun onEditorAction(view: TextView, actionID: Int, event: KeyEvent?): Boolean {
+                if (actionID == EditorInfo.IME_ACTION_SEND) {
+                    onConfirm(view)
+                }
+                return true
+            }
+        }
         editText.setOnKeyListener(onKeyListener)
+        editText.setOnEditorActionListener(onEditorActionListener)
     }
     public fun onConfirm(view: View) {
         val contentInput = findViewById<EditText>(R.id.content)
@@ -55,6 +64,7 @@ class CreateNoteActivity : AppCompatActivity() {
         if (content != "") {
             Log.d("LOG_CREATE_ACTIVITY", content)
             val notificationID = System.currentTimeMillis().toInt();
+            Log.d("LOG_CREATE_ACTIVITY", notificationID.toString())
 
             /* val intent = Intent(this, RefreshNote::class.java)
             intent.putExtra("ID", notificationID)

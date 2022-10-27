@@ -25,7 +25,7 @@ class RemoveNote: BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {
         val notificationID = intent.getIntExtra("ID", 1)
         val content = intent.getStringExtra("Content").toString()
-        val isOnlyRemoveNoti = intent.getBooleanExtra("isOnlyRemoveNotification", true)
+        val isOnlyRemoveNoti = intent.getBooleanExtra("isOnlyRemoveNotification", false)
         Log.d("LOG_REMOVE", notificationID.toString())
 
         with(NotificationManagerCompat.from(context)) {

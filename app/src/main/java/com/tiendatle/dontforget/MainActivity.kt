@@ -141,11 +141,12 @@ class MainActivity : AppCompatActivity() {
 
         //Displaying entries
         val mainLayout = findViewById<LinearLayout>(R.id.mainlayout)
-        val onClickListener = object: View.OnClickListener {
-            //Define action when a note is clicked
-            override fun onClick(view: View) {
-                val notificationID = view.id / 10
-                val getTextView = view.rootView.findViewById<TextView>(view.id)
+                val onClickListener = object: View.OnClickListener {
+                    //Define action when a note is clicked
+                    override fun onClick(view: View) {
+                        val notificationID = view.id - 10
+                        Log.d("MAIN_LOG", notificationID.toString())
+                        val getTextView = view.rootView.findViewById<TextView>(view.id)
                 val content = getTextView.text.toString()
                 val editNoteIntent = Intent(view.context, EditNoteActivity::class.java)
                 editNoteIntent.putExtra("ID", notificationID)
@@ -167,6 +168,7 @@ class MainActivity : AppCompatActivity() {
                 var context = view.context
                 startActivity(editNoteIntent)
                 while (context is ContextWrapper){
+                    Log.d("MAIN_LOG", "I'm looping")
                     if (context is Activity){
                         context.finish()
                     }
@@ -200,7 +202,8 @@ class MainActivity : AppCompatActivity() {
                 header.setTypeface(font)
                 //header.setTextColor(ContextCompat.getColor(this, R.color.black))
                 header.isClickable = true
-                header.id = processed[0].toInt() * 10
+                header.id = processed[0].toInt() + 10
+                Log.d("MAIN_LOG", header.id.toString())
                 header.setOnClickListener(onClickListener)
                 noteChild.addView(header)
             }

@@ -19,7 +19,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -39,11 +41,21 @@ class EditNoteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_note)
 
         this.notificationID = intent.getIntExtra("ID", 1)
+        Log.d("LOG_EDIT_NOTE", notificationID.toString())
         this.contentOriginal = intent.getStringExtra("Content").toString()
         this.origin = intent.getStringExtra("Origin").toString()
         this.triggerAt = intent.getLongExtra("triggerAt", 1)
 
         val edittext = findViewById<EditText>(R.id.contentEditNote)
+        val onEditorActionListener = object: TextView.OnEditorActionListener {
+            override fun onEditorAction(view: TextView, actionID: Int, event: KeyEvent?): Boolean {
+                if (actionID == EditorInfo.IME_ACTION_SEND) {
+                    onConfirm(view)
+                }
+                return true
+            }
+        }
+        edittext.setOnEditorActionListener(onEditorActionListener)
         val editable = SpannableStringBuilder(contentOriginal)
         edittext.text = editable
 
